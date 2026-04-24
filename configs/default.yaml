@@ -1,0 +1,80 @@
+# CompHairHead Default Configuration
+
+# Device settings
+device: "mps"  # "cuda", "mps", or "cpu"
+taichi_arch: "metal"  # "cuda", "metal", or "cpu"
+
+# Image preprocessing
+preprocess:
+  image_size: 512
+  num_views: 16  # K viewpoints for multi-view supervision
+
+# 3D Gaussian Splatting
+gaussian:
+  sh_degree: 3
+  feature_dim: 2  # learnable semantic feature dimension
+  init_opacity: 0.8
+  min_opacity: 0.005
+
+# FLAME model
+flame:
+  model_path: "assets/flame/generic_model.npz"
+  landmark_path: "assets/flame/landmark_embedding.npy"
+  num_shape_params: 100
+  num_expression_params: 50
+
+# Hair segmentation
+segmentation:
+  sam2_checkpoint: "assets/sam2/sam2_hiera_small.pt"
+  seg_lr: 0.01
+  seg_iterations: 200
+  boundary_threshold: 5  # pixels for boundary region
+
+# Non-rigid registration
+registration:
+  lr_latent: 0.001
+  lr_flame: 0.0001
+  lr_gaussian: 0.0005
+  iterations: 500
+  lambda_rec: 1.0
+  lambda_chamfer: 0.1
+  lambda_l1: 0.8         # (1 - lambda2)
+  lambda_ssim: 0.2       # lambda2
+  lambda_lpips: 0.1      # lambda3
+
+# Component assembly
+assembly:
+  lr_hair: 0.0005
+  lr_theta: 0.0001
+  iterations: 300
+  lambda_geo: 0.5
+  collision_margin: 0.002  # epsilon
+
+# Cage construction
+cage:
+  voxel_resolution: 64
+  target_vertices: 400  # < 500
+  simplify_ratio: 0.1
+
+# PBD solver
+pbd:
+  dt: 0.016              # time step (60fps)
+  gravity: [0.0, -9.81, 0.0]
+  num_iterations: 15     # constraint projection iterations
+  stretch_compliance: 0.0001
+  bending_compliance: 0.001
+  volume_compliance: 0.0
+  damping: 0.99
+  collision_margin: 0.001
+
+# Rendering
+render:
+  width: 512
+  height: 512
+  background_color: [1.0, 1.0, 1.0]
+  fov: 20.0
+
+# Output
+output:
+  save_dir: "outputs"
+  save_interval: 50

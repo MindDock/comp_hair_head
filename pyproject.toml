@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comp-hair-head"
+version = "0.1.0"
+description = "One-shot Compositional 3D Head Avatars with Deformable Hair"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "CompHairHead Team"},
+]
+dependencies = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "trimesh>=4.0.0",
+    "opencv-python>=4.8.0",
+    "Pillow>=10.0.0",
+    "PyYAML>=6.0",
+    "tqdm>=4.66.0",
+    "scikit-image>=0.22.0",
+    "plyfile>=1.0",
+    "matplotlib>=3.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["comp_hair_head*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

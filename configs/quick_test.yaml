@@ -1,0 +1,69 @@
+# CompHairHead Quick Test Configuration
+
+device: "mps"
+taichi_arch: "metal"
+
+preprocess:
+  image_size: 256
+  num_views: 4
+
+gaussian:
+  sh_degree: 3
+  feature_dim: 2
+  init_opacity: 0.8
+  min_opacity: 0.005
+
+flame:
+  model_path: "assets/flame/generic_model.npz"
+  landmark_path: "assets/flame/landmark_embedding.npy"
+  num_shape_params: 100
+  num_expression_params: 50
+
+segmentation:
+  sam2_checkpoint: "assets/sam2/sam2_hiera_small.pt"
+  seg_lr: 0.01
+  seg_iterations: 20
+  boundary_threshold: 5
+
+registration:
+  lr_latent: 0.001
+  lr_flame: 0.0001
+  lr_gaussian: 0.0005
+  iterations: 50
+  lambda_rec: 1.0
+  lambda_chamfer: 0.1
+  lambda_l1: 0.8
+  lambda_ssim: 0.2
+  lambda_lpips: 0.1
+
+assembly:
+  lr_hair: 0.0005
+  lr_theta: 0.0001
+  iterations: 30
+  lambda_geo: 0.5
+  collision_margin: 0.002
+
+cage:
+  voxel_resolution: 32
+  target_vertices: 200
+  simplify_ratio: 0.1
+
+pbd:
+  dt: 0.016
+  gravity: [0.0, -9.81, 0.0]
+  num_iterations: 15
+  stretch_compliance: 0.0001
+  bending_compliance: 0.001
+  volume_compliance: 0.0
+  damping: 0.99
+  collision_margin: 0.001
+
+render:
+  width: 256
+  height: 256
+  background_color: [1.0, 1.0, 1.0]
+  fov: 20.0
+
+output:
+  save_dir: "outputs"
+  save_interval: 50
