@@ -22,7 +22,6 @@ build/
 dist/
 *.egg
 *.egg-info/
-*.egg-info
 pip-wheel-metadata/
 share/python-wheels/
 *.manifest
